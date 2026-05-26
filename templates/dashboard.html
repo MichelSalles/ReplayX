@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>ReplayX Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="topo">
+
+    <h1>
+
+        Replay<span>X</span>
+
+    </h1>
+
+    <a href="/logout" class="logout-btn">
+
+        Sair
+
+    </a>
+
+</div>
+
+<h2 class="dashboard-title">
+
+    Replays Recentes
+
+</h2>
+
+<div class="videos-grid">
+
+{% for item in videos %}
+
+<div class="video-card">
+
+    <video controls>
+
+        <source
+            src="/uploads/{{ item.video }}"
+            type="video/mp4"
+        >
+
+    </video>
+
+    <div class="video-info">
+
+        <h3>
+
+            {{ item.video }}
+
+        </h3>
+
+        <a
+            href="/uploads/{{ item.video }}"
+            download
+        >
+
+            <button class="download-btn">
+
+                ⬇ Download
+
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

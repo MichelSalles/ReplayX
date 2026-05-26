@@ -1,0 +1,609 @@
+/* =========================
+RESET
+========================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+/* =========================
+BODY LOGIN
+========================= */
+
+.login-body {
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    font-family: Arial, sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,0.72),
+            rgba(0,0,0,0.88)
+        ),
+        url("/static/img/bg.png");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+/* =========================
+OVERLAY
+========================= */
+
+.bg-overlay {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    backdrop-filter: blur(1px);
+}
+
+/* =========================
+WRAPPER
+========================= */
+
+.login-wrapper {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 90%;
+    max-width: 1500px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 80px;
+}
+
+/* =========================
+LEFT
+========================= */
+
+.brand-side {
+
+    flex: 1;
+
+    color: white;
+}
+
+/* =========================
+ICON
+========================= */
+
+.camera-icon {
+
+    margin-bottom: 20px;
+}
+
+.icon-square {
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+
+    border: 3px solid #00ff99;
+
+    box-shadow:
+        0 0 15px rgba(0,255,153,0.45);
+
+    position: relative;
+}
+
+.icon-square::after {
+
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    background: #00ff99;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    top: 8px;
+    right: 8px;
+}
+
+/* =========================
+TITLE
+========================= */
+
+.brand-side h1 {
+
+    font-size: 130px;
+
+    font-weight: 900;
+
+    color: white;
+
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 0 30px rgba(0,255,153,0.15);
+}
+
+.brand-side h1 span {
+
+    color: #00ff99;
+}
+
+/* =========================
+SUBTITLE
+========================= */
+
+.brand-side h2 {
+
+    font-size: 58px;
+
+    color: #00ff99;
+
+    margin-bottom: 25px;
+}
+
+/* =========================
+TEXT
+========================= */
+
+.brand-side p {
+
+    font-size: 32px;
+
+    color: #dddddd;
+
+    line-height: 1.5;
+
+    margin-bottom: 40px;
+}
+
+/* =========================
+CLOUD
+========================= */
+
+.cloud-info {
+
+    font-size: 24px;
+
+    color: #00ff99;
+
+    font-weight: bold;
+}
+
+/* =========================
+LOGIN BOX
+========================= */
+
+.login-box {
+
+    width: 460px;
+
+    padding: 65px 50px;
+
+    border-radius: 35px;
+
+    background:
+        rgba(10,10,10,0.78);
+
+    border:
+        1px solid rgba(0,255,153,0.18);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 0 50px rgba(0,255,153,0.22);
+}
+
+/* =========================
+LOGIN TITLE
+========================= */
+
+.login-box h3 {
+
+    text-align: center;
+
+    font-size: 62px;
+
+    margin-bottom: 45px;
+
+    color: white;
+}
+
+/* =========================
+INPUTS
+========================= */
+
+.input-group {
+
+    margin-bottom: 24px;
+}
+
+.login-box input {
+
+    width: 100%;
+
+    padding: 24px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color: white;
+
+    font-size: 20px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.login-box input:focus {
+
+    border:
+        1px solid #00ff99;
+
+    box-shadow:
+        0 0 18px rgba(0,255,153,0.35);
+}
+
+.login-box input::placeholder {
+
+    color: #aaa;
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.login-box button {
+
+    width: 100%;
+
+    padding: 24px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00ff99,
+            #00d9ff
+        );
+
+    color: black;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+
+    transform: scale(1.03);
+
+    box-shadow:
+        0 0 30px rgba(0,255,153,0.45);
+}
+
+/* =========================
+STATUS
+========================= */
+
+.login-status {
+
+    margin-top: 35px;
+
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    color: #cccccc;
+
+    font-size: 17px;
+}
+
+/* =========================
+RESPONSIVO
+========================= */
+
+@media (max-width: 1100px) {
+
+    .login-wrapper {
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .brand-side h1 {
+
+        font-size: 90px;
+    }
+
+    .brand-side h2 {
+
+        font-size: 38px;
+    }
+
+    .brand-side p {
+
+        font-size: 22px;
+    }
+
+    .login-box {
+
+        width: 95%;
+    }
+}
+/* =========================
+DASHBOARD
+========================= */
+
+body {
+
+    background: #050505;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+TOPO
+========================= */
+
+.topo {
+
+    width: 100%;
+
+    padding: 25px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background:
+        rgba(0,0,0,0.75);
+
+    border-bottom:
+        1px solid rgba(0,255,153,0.15);
+
+    backdrop-filter: blur(10px);
+}
+
+.topo h1 {
+
+    font-size: 42px;
+
+    color: white;
+}
+
+.topo h1 span {
+
+    color: #00ff99;
+}
+
+/* =========================
+BOTAO SAIR
+========================= */
+
+.logout-btn {
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00ff99,
+            #00d9ff
+        );
+
+    color: black;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 20px rgba(0,255,153,0.4);
+}
+
+/* =========================
+TITULO
+========================= */
+
+.dashboard-title {
+
+    padding: 40px;
+
+    font-size: 42px;
+
+    color: white;
+}
+
+/* =========================
+GRID
+========================= */
+
+
+.videos-grid {
+
+    padding: 0 40px 40px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(320px, 1fr));
+
+    gap: 25px;
+}
+
+/* =========================
+CARD VIDEO
+========================= */
+
+.video-card {
+
+    background:
+        rgba(15,15,15,0.9);
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(0,255,153,0.12);
+
+    box-shadow:
+        0 0 25px rgba(0,255,153,0.08);
+
+    transition: 0.3s;
+}
+
+.video-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 0 30px rgba(0,255,153,0.18);
+}
+
+/* =========================
+VIDEO CARD
+========================= */
+
+.video-card {
+
+    background:
+        rgba(15,15,15,0.92);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(0,255,153,0.10);
+
+    transition: 0.3s;
+
+    position: relative;
+}
+
+.video-card:hover {
+
+    transform:
+        scale(1.04);
+
+    z-index: 5;
+
+    box-shadow:
+        0 0 30px rgba(0,255,153,0.22);
+}
+
+.video-card video {
+
+    width: 100%;
+
+    height: 210px;
+
+    object-fit: cover;
+
+    background: black;
+
+    display: block;
+}
+/* =========================
+INFO VIDEO
+========================= */
+
+.video-info {
+
+    padding: 20px;
+}
+
+.video-info h3 {
+
+    font-size: 18px;
+
+    margin-bottom: 15px;
+
+    color: white;
+}
+
+/* =========================
+BOTAO DOWNLOAD
+========================= */
+
+.download-btn {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00ff99,
+            #00d9ff
+        );
+
+    color: black;
+
+    transition: 0.3s;
+}
+
+.download-btn:hover {
+
+    transform: scale(1.02);
+
+    box-shadow:
+        0 0 20px rgba(0,255,153,0.35);
+}
