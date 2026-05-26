@@ -3,7 +3,8 @@ import cv2
 import cloudinary
 import cloudinary.uploader
 from obsws_python import ReqClient
-
+from dotenv import load_dotenv
+load_dotenv()
 
 from flask import (
     Flask,
@@ -40,13 +41,13 @@ obs = ReqClient(
 print("OBS conectado")
 
 cloudinary.config(
-    cloud_name="REMOVED_CLOUD_NAME",
-    api_key="REMOVED_API_KEY",
-    api_secret="REMOVED_API_SECRET",
+    cloud_name=os.getenv("CLOUD_NAME"),
+    api_key=os.getenv("API_KEY"),
+    api_secret=os.getenv("API_SECRET"),
     secure=True
 )
 # segurança
-app.config['SECRET_KEY'] = 'replay_secret'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 # banco
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -130,11 +131,11 @@ def login():
 
 def gerar_thumbnail(video):
 
-    thumb_path = f"thumbnails/{video}.jpg"
+    thumb_path = f"core/thumbnails/{video}.jpg"
 
     if not os.path.exists(thumb_path):
 
-        video_path = f"uploads/{video}"
+        video_path = f"core/uploads/{video}"
 
         cap = cv2.VideoCapture(video_path)
 
@@ -153,7 +154,7 @@ def gerar_thumbnail(video):
 
 def upload_video(video):
 
-    video_path = f"uploads/{video}"
+    video_path = f"core/uploads/{video}"
 
     resultado = cloudinary.uploader.upload_large(
 
@@ -176,7 +177,7 @@ def upload_video(video):
 def dashboard():
     videos = [
 
-        video for video in os.listdir("uploads")
+        video for video in os.listdir("core/uploads")
 
         if video.endswith(".mp4")
 
@@ -206,7 +207,7 @@ def dashboard():
 def uploaded_file(filename):
 
     return send_from_directory(
-        'uploads',
+        'core/uploads',
         filename
     )
 # =========================

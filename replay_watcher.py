@@ -120,7 +120,7 @@ observer.schedule(
 
     ReplayHandler(),
 
-    path="uploads",
+    path="core/uploads",
 
     recursive=False
 
