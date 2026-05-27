@@ -1,9 +1,14 @@
+import os
+
+from dotenv import load_dotenv
 from obsws_python import ReqClient
 
+load_dotenv()
+
 client = ReqClient(
-    host='localhost',
-    port=4455,
-    password=''
+    host=os.getenv("OBS_HOST", "localhost"),
+    port=int(os.getenv("OBS_PORT", "4455")),
+    password=os.getenv("OBS_PASSWORD", "")
 )
 
 def salvar_replay():

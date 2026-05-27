@@ -1,3 +1,4 @@
+import os
 import time
 from datetime import datetime, timezone
 from dateutil import parser
@@ -5,15 +6,18 @@ from dateutil import parser
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # =========================
 # CLOUDINARY
 # =========================
 
 cloudinary.config(
-    cloud_name="REMOVED_CLOUD_NAME",
-    api_key="REMOVED_API_KEY",
-    api_secret="REMOVED_API_SECRET",
+    cloud_name=os.getenv("CLOUD_NAME"),
+    api_key=os.getenv("API_KEY"),
+    api_secret=os.getenv("API_SECRET"),
     secure=True
 )
 

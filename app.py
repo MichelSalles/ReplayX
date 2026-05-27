@@ -26,6 +26,14 @@ from flask_login import (
     current_user
 )
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "core", "uploads")
+THUMBNAIL_FOLDER = os.path.join(BASE_DIR, "core", "thumbnails")
+VIDEO_EXTENSIONS = (".mp4",)
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(THUMBNAIL_FOLDER, exist_ok=True)
+
 # =========================
 # APP
 # =========================
@@ -33,9 +41,9 @@ from flask_login import (
 app = Flask(__name__)
 
 obs = ReqClient(
-    host='localhost',
-    port=4455,
-    password='123456'
+    host=os.getenv("OBS_HOST", "localhost"),
+    port=int(os.getenv("OBS_PORT", "4455")),
+    password=os.getenv("OBS_PASSWORD", "")
 )
 
 print("OBS conectado")
@@ -131,11 +139,11 @@ def login():
 
 def gerar_thumbnail(video):
 
-    thumb_path = f"core/thumbnails/{video}.jpg"
+    thumb_path = os.path.join(THUMBNAIL_FOLDER, f"{video}.jpg")
 
     if not os.path.exists(thumb_path):
 
-        video_path = f"core/uploads/{video}"
+        video_path = os.path.join(UPLOAD_FOLDER, video)
 
         cap = cv2.VideoCapture(video_path)
 
@@ -154,7 +162,7 @@ def gerar_thumbnail(video):
 
 def upload_video(video):
 
-    video_path = f"core/uploads/{video}"
+    video_path = os.path.join(UPLOAD_FOLDER, video)
 
     resultado = cloudinary.uploader.upload_large(
 
@@ -177,22 +185,27 @@ def upload_video(video):
 def dashboard():
     videos = [
 
-        video for video in os.listdir("core/uploads")
+        video for video in os.listdir(UPLOAD_FOLDER)
 
-        if video.endswith(".mp4")
+        if video.lower().endswith(VIDEO_EXTENSIONS)
 
     ]
 
     lista_videos = []
 
-    for video in videos:
+    for video in sorted(
+        videos,
+        key=lambda nome: os.path.getmtime(os.path.join(UPLOAD_FOLDER, nome)),
+        reverse=True
+    ):
 
         thumb = gerar_thumbnail(video)
 
         lista_videos.append({
 
             "video": video,
-            "thumb": thumb
+            "thumb": thumb,
+            "mime_type": "video/mp4"
 
         })
 
@@ -207,7 +220,7 @@ def dashboard():
 def uploaded_file(filename):
 
     return send_from_directory(
-        'core/uploads',
+        UPLOAD_FOLDER,
         filename
     )
 # =========================

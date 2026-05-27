@@ -5,8 +5,12 @@ import time
 # CONFIG
 # =========================
 
-PASTA_UPLOADS = "uploads"
-PASTA_THUMBS = "thumbnails"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PASTA_UPLOADS = os.path.join(BASE_DIR, "core", "uploads")
+PASTA_THUMBS = os.path.join(BASE_DIR, "core", "thumbnails")
+
+os.makedirs(PASTA_UPLOADS, exist_ok=True)
+os.makedirs(PASTA_THUMBS, exist_ok=True)
 
 # apagar após X dias
 DIAS = 7

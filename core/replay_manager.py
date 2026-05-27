@@ -5,7 +5,10 @@ from datetime import datetime
 class ReplayManager:
 
     def __init__(self):
-        self.base_path = "uploads"
+        self.base_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "uploads"
+        )
 
     def create_replay_folder(self):
 

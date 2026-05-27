@@ -1,5 +1,10 @@
+import os
+
+from dotenv import load_dotenv
 from flask import Flask
 from obsws_python import ReqClient
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -8,9 +13,9 @@ app = Flask(__name__)
 # =========================
 
 obs = ReqClient(
-    host='localhost',
-    port=4455,
-    password='123456'
+    host=os.getenv("OBS_HOST", "localhost"),
+    port=int(os.getenv("OBS_PORT", "4455")),
+    password=os.getenv("OBS_PASSWORD", "")
 )
 
 print("Conectado ao OBS!")
