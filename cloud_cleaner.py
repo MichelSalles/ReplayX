@@ -1,18 +1,19 @@
 import os
+import sqlite3
 import time
 from datetime import datetime, timezone
-from dateutil import parser
 
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
+from dateutil import parser
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# =========================
-# CLOUDINARY
-# =========================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_PATH = os.path.join(BASE_DIR, "instance", "database.db")
+DIAS = 7
 
 cloudinary.config(
     cloud_name=os.getenv("CLOUD_NAME"),
@@ -21,54 +22,53 @@ cloudinary.config(
     secure=True
 )
 
-# =========================
-# CONFIG
-# =========================
 
-DIAS = 7
+def remover_registro(public_id):
+    if not os.path.isfile(DATABASE_PATH):
+        return
 
-# =========================
-# LIMPAR CLOUDINARY
-# =========================
+    try:
+        with sqlite3.connect(DATABASE_PATH) as conexao:
+            conexao.execute("DELETE FROM replay WHERE public_id = ?", (public_id,))
+    except sqlite3.OperationalError:
+        return
+
 
 def limpar_cloudinary():
-
-    recursos = cloudinary.api.resources(
-        type="upload",
-        resource_type="video",
-        prefix="replays/"
-    )
-
+    cursor = None
     agora = datetime.now(timezone.utc)
 
-    for recurso in recursos["resources"]:
+    while True:
+        parametros = {
+            "type": "upload",
+            "resource_type": "video",
+            "prefix": "replays/",
+            "max_results": 100
+        }
 
-        criado = parser.parse(recurso["created_at"])
+        if cursor:
+            parametros["next_cursor"] = cursor
 
-        idade = (agora - criado).days
+        recursos = cloudinary.api.resources(**parametros)
 
-        if idade >= DIAS:
+        for recurso in recursos["resources"]:
+            criado = parser.parse(recurso["created_at"])
 
-            public_id = recurso["public_id"]
+            if (agora - criado).days >= DIAS:
+                public_id = recurso["public_id"]
+                print(f"APAGANDO: {public_id}")
+                cloudinary.uploader.destroy(public_id, resource_type="video")
+                remover_registro(public_id)
+                print("REMOVIDO")
 
-            print(f"APAGANDO: {public_id}")
+        cursor = recursos.get("next_cursor")
+        if not cursor:
+            break
 
-            cloudinary.uploader.destroy(
-                public_id,
-                resource_type="video"
-            )
 
-            print("REMOVIDO")
+if __name__ == "__main__":
+    print("LIMPEZA CLOUDINARY ATIVA...")
 
-# =========================
-# LOOP
-# =========================
-
-print("LIMPEZA CLOUDINARY ATIVA...")
-
-while True:
-
-    limpar_cloudinary()
-
-    # verifica a cada 1 hora
-    time.sleep(3600)
+    while True:
+        limpar_cloudinary()
+        time.sleep(3600)

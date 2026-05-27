@@ -13,9 +13,12 @@ SECRET_KEY=
 OBS_HOST=localhost
 OBS_PORT=4455
 OBS_PASSWORD=
+REPLAY_TOKEN=
 ```
 
 O arquivo `.env` contem credenciais e nao deve ser enviado ao Git.
+Use no `REPLAY_TOKEN` um valor longo e aleatorio, repetido no `secrets.h` do
+ESP32.
 
 ## Pasta de replays do OBS
 
@@ -51,4 +54,26 @@ caso a gravacao seja interrompida antes de finalizar.
 
 Na pasta `Arduino\Projeto ESP32\ReplayWiFi`, crie `secrets.h` a partir de
 `secrets.example.h` e informe a rede Wi-Fi e sua senha. O arquivo `secrets.h`
-tambem deve permanecer somente na maquina local.
+tambem deve permanecer somente na maquina local. O botao envia `POST /replay`
+com o cabecalho `X-Replay-Token`, que precisa corresponder ao `REPLAY_TOKEN` do
+servidor.
+
+## Execucao
+
+Instale as dependencias:
+
+```text
+pip install -r requirements.txt
+```
+
+Com o OBS e seu Replay Buffer ativos, execute em terminais separados:
+
+```text
+python app.py
+python replay_watcher.py
+```
+
+O watcher processa arquivos pendentes ao iniciar, converte MKV para MP4,
+envia o resultado ao Cloudinary e grava a URL no banco local. O dashboard
+autenticado lista os uploads persistidos. A rota local `/uploads/<arquivo>`
+tambem exige login.

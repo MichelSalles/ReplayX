@@ -1,121 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReplayX</title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body class="login-body">
+    <div class="bg-overlay"></div>
 
-<div class="bg-overlay"></div>
-
-<div class="login-wrapper">
-
-    <!-- ESQUERDA -->
-    <div class="brand-side">
-
-        <div class="camera-icon">
-
-            <div class="icon-square"></div>
-
-        </div>
-
-        <h1>
-
-            Replay<span>X</span>
-
-        </h1>
-
-        <h2>
-
-            REVIVA CADA JOGADA.
-
-        </h2>
-
-        <p>
-
-            COMPARTILHE MOMENTOS.
-            <br>
-            INSPIRE O JOGO.
-
-        </p>
-
-        <div class="cloud-info">
-
-            ☁ REPLAY INSTANTÂNEO NA NUVEM.
-
-        </div>
-
-    </div>
-
-    <!-- LOGIN -->
-    <div class="login-box">
-
-        <h3>Entrar</h3>
-
-        <form method="POST">
-
-            <div class="input-group">
-
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Usuário"
-                    required
-                >
-
+    <div class="login-wrapper">
+        <div class="brand-side">
+            <div class="camera-icon">
+                <div class="icon-square"></div>
             </div>
-
-            <div class="input-group">
-
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Senha"
-                    required
-                >
-
-            </div>
-
-            <button type="submit">
-
-                ENTRAR →
-
-            </button>
-
-        </form>
-
-        <div class="login-status">
-
-            <span>🛡 Seguro</span>
-
-            <span>•</span>
-
-            <span>⚡ Rápido</span>
-
-            <span>•</span>
-
-            <span>✔ Confiável</span>
-
+            <h1>Replay<span>X</span></h1>
+            <h2>REVIVA CADA JOGADA.</h2>
+            <p>COMPARTILHE MOMENTOS.<br>INSPIRE O JOGO.</p>
+            <div class="cloud-info">REPLAY INSTANTANEO NA NUVEM.</div>
         </div>
 
+        <div class="login-box">
+            <h3>Entrar</h3>
+            <form method="POST">
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Usuario" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Senha" required>
+                </div>
+                <button type="submit">ENTRAR</button>
+            </form>
+            <div class="login-status">
+                <span>Seguro</span>
+                <span>|</span>
+                <span>Rapido</span>
+                <span>|</span>
+                <span>Confiavel</span>
+            </div>
+        </div>
     </div>
-
-</div>
-
 </body>
 </html>
