@@ -4,37 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Replays | ReplayX</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="topo">
-        <h1>Replay<span>X</span></h1>
-        <div class="top-links">
-            {% if current_user.is_master %}
-            <a class="panel-link" href="{{ url_for('master_dashboard') }}">Painel master</a>
-            {% endif %}
-            <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
+<div class="topo">
+    <h1>Replay<span>X</span></h1>
+    <div class="top-links">
+        {% if current_user.is_master %}
+        <a class="panel-link"
+           href="{{ url_for('master_dashboard') }}">
+           Painel master
+        </a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}"
+           class="logout-btn">
+           Sair
+        </a>
+    </div>
+</div>
+<h2 class="dashboard-title">
+    Replays de {{ current_user.tenant.business_name }}
+</h2>
+<div class="videos-grid">
+    {% for item in videos %}
+    <div class="video-card">
+        <button class="play-btn"
+                onclick="carregarVideo(this)"
+                data-video="{{ url_for('replay_media', replay_id=item.id) }}">
+            ▶ Assistir Replay
+        </button>
+        <video controls
+               preload="none"
+               style="display:none; width:100%;">
+        </video>
+        <div class="video-info">
+            <h3>{{ item.filename }}</h3>
+            <a href="{{ url_for('replay_media', replay_id=item.id) }}"
+               download>
+                <button class="download-btn">
+                    Baixar vídeo
+                </button>
+            </a>
         </div>
     </div>
-
-    <h2 class="dashboard-title">Replays de {{ current_user.tenant.business_name }}</h2>
-
-    <div class="videos-grid">
-        {% for item in videos %}
-        <div class="video-card">
-            <video controls>
-                <source src="{{ url_for('replay_media', replay_id=item.id) }}" type="video/mp4">
-            </video>
-            <div class="video-info">
-                <h3>{{ item.filename }}</h3>
-                <a href="{{ url_for('replay_media', replay_id=item.id) }}" download>
-                    <button class="download-btn">Baixar video</button>
-                </a>
-            </div>
-        </div>
-        {% else %}
-        <p class="empty-state">Nenhum replay publicado ainda.</p>
-        {% endfor %}
-    </div>
+    {% else %}
+    <p class="empty-state">
+        Nenhum replay publicado ainda.
+    </p>
+    {% endfor %}
+</div>
+<script>
+// =========================
+// CARREGAR VIDEO SOMENTE
+// QUANDO O USUARIO CLICAR
+// =========================
+function carregarVideo(botao){
+    const video = botao.nextElementSibling
+    if(video.src === ''){
+        video.src = botao.dataset.video
+    }
+    video.style.display = 'block'
+    botao.style.display = 'none'
+}
+// =========================
+// ATUALIZAR REPLAYS
+// SEM RECARREGAR PAGINA
+// =========================
+async function atualizarReplays(){
+    try{
+        const resposta = await fetch(window.location.href)
+        const html = await resposta.text()
+        const parser = new DOMParser()
+        const novoDoc = parser.parseFromString(html, 'text/html')
+        const novosVideos =
+            novoDoc.querySelector('.videos-grid')
+        document.querySelector('.videos-grid').innerHTML =
+            novosVideos.innerHTML
+    }catch(erro){
+        console.log('Erro ao atualizar replays:', erro)
+    }
+}
+// Atualiza a cada 10 segundos
+setInterval(atualizarReplays, 10000)
+</script>
 </body>
 </html>
