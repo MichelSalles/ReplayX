@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contratar ReplayX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="form-page">
+    <div class="form-card contract-card">
+        <a class="back-link" href="{{ url_for('landing') }}">ReplayX</a>
+        <h1>Contrate o ReplayX</h1>
+        <p class="muted">Crie a conta master do seu estabelecimento para configurar a marca e liberar acessos.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <p class="notice {{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Nome do estabelecimento</label>
+            <input type="text" name="business_name" required maxlength="160">
+            <label>Usuario master</label>
+            <input type="text" name="username" required maxlength="100">
+            <label>Senha</label>
+            <input type="password" name="password" required minlength="8">
+            <button type="submit">Ativar servico</button>
+        </form>
+        <p class="form-footer">Ja possui conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+    </div>
+</body>
+</html>

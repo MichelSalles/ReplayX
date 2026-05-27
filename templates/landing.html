@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReplayX | Replay com a sua marca</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="site-body">
+    <header class="site-nav">
+        <h1>Replay<span>X</span></h1>
+        <nav>
+            <a href="{{ url_for('login') }}">Entrar</a>
+            <a class="cta-small" href="{{ url_for('contratar') }}">Contratar</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">REPLAY INSTANTANEO PARA ESPORTES</p>
+            <h2>Transforme cada jogada em divulgacao para seu negocio.</h2>
+            <p class="hero-text">
+                O ReplayX grava lances pelo botao conectado ao OBS, publica os
+                videos em uma galeria privada e aplica a marca do estabelecimento
+                antes do compartilhamento.
+            </p>
+            <div class="hero-actions">
+                <a class="cta" href="{{ url_for('contratar') }}">Contratar servico</a>
+                <a class="secondary-link" href="{{ url_for('login') }}">Ja sou cliente</a>
+            </div>
+        </div>
+
+        <div class="feature-panel">
+            <div class="feature-card">
+                <strong>01</strong>
+                <h3>Capture</h3>
+                <p>Um clique no botao salva o replay do OBS.</p>
+            </div>
+            <div class="feature-card">
+                <strong>02</strong>
+                <h3>Personalize</h3>
+                <p>Inclua logo e marca d'agua automaticamente.</p>
+            </div>
+            <div class="feature-card">
+                <strong>03</strong>
+                <h3>Compartilhe</h3>
+                <p>Usuarios autorizados acessam e baixam os lances.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -3,5 +3,6 @@
 __pycache__/
 *.py[cod]
 instance/*.db
+instance/branding/
 core/uploads/
 core/thumbnails/

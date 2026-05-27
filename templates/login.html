@@ -3,42 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReplayX</title>
+    <title>Entrar | ReplayX</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="login-body">
-    <div class="bg-overlay"></div>
+<body class="form-page">
+    <div class="form-card">
+        <a class="back-link" href="{{ url_for('landing') }}">Replay<span>X</span></a>
+        <h1>Entrar</h1>
+        <p class="muted">Acesse seus replays ou administre sua marca.</p>
 
-    <div class="login-wrapper">
-        <div class="brand-side">
-            <div class="camera-icon">
-                <div class="icon-square"></div>
-            </div>
-            <h1>Replay<span>X</span></h1>
-            <h2>REVIVA CADA JOGADA.</h2>
-            <p>COMPARTILHE MOMENTOS.<br>INSPIRE O JOGO.</p>
-            <div class="cloud-info">REPLAY INSTANTANEO NA NUVEM.</div>
-        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <p class="notice {{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
 
-        <div class="login-box">
-            <h3>Entrar</h3>
-            <form method="POST">
-                <div class="input-group">
-                    <input type="text" name="username" placeholder="Usuario" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password" placeholder="Senha" required>
-                </div>
-                <button type="submit">ENTRAR</button>
-            </form>
-            <div class="login-status">
-                <span>Seguro</span>
-                <span>|</span>
-                <span>Rapido</span>
-                <span>|</span>
-                <span>Confiavel</span>
-            </div>
-        </div>
+        <form method="POST">
+            <label>Usuario</label>
+            <input type="text" name="username" required>
+            <label>Senha</label>
+            <input type="password" name="password" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p class="form-footer">Quer usar o ReplayX? <a href="{{ url_for('contratar') }}">Contratar</a></p>
     </div>
 </body>
 </html>

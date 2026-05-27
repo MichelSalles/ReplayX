@@ -607,3 +607,300 @@ BOTAO DOWNLOAD
     box-shadow:
         0 0 20px rgba(0,255,153,0.35);
 }
+
+/* =========================
+SITE PUBLICO E ADMIN
+========================= */
+
+.site-body,
+.form-page {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background:
+        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.92)),
+        url("/static/img/bg.png") center/cover fixed;
+    color: white;
+}
+
+.site-nav {
+    width: min(1240px, 92%);
+    margin: 0 auto;
+    padding: 32px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-nav h1 {
+    font-size: 40px;
+}
+
+.site-nav h1 span,
+.back-link span {
+    color: #00ff99;
+}
+
+.site-nav nav,
+.hero-actions,
+.top-links {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.site-nav a,
+.secondary-link,
+.panel-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cta,
+.cta-small {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    color: black !important;
+    background: linear-gradient(90deg, #00ff99, #00d9ff);
+    border-radius: 14px;
+}
+
+.cta {
+    padding: 18px 30px;
+}
+
+.cta-small {
+    padding: 12px 20px;
+}
+
+.hero {
+    width: min(1240px, 92%);
+    margin: 60px auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.eyebrow {
+    color: #00ff99;
+    letter-spacing: 3px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.hero-copy h2 {
+    font-size: clamp(44px, 5vw, 66px);
+    line-height: 1.05;
+    margin-bottom: 24px;
+}
+
+.hero-text {
+    color: #d0d0d0;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+}
+
+.feature-panel {
+    display: grid;
+    gap: 16px;
+}
+
+.feature-card,
+.admin-card,
+.form-card {
+    background: rgba(10,10,10,0.80);
+    border: 1px solid rgba(0,255,153,0.18);
+    border-radius: 22px;
+    box-shadow: 0 0 30px rgba(0,255,153,0.10);
+}
+
+.feature-card {
+    padding: 28px;
+}
+
+.feature-card strong {
+    color: #00ff99;
+    font-size: 14px;
+}
+
+.feature-card h3 {
+    font-size: 26px;
+    margin: 10px 0;
+}
+
+.feature-card p,
+.muted {
+    color: #bcbcbc;
+    line-height: 1.5;
+}
+
+.form-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+}
+
+.form-card {
+    width: min(460px, 100%);
+    padding: 42px;
+}
+
+.contract-card {
+    width: min(520px, 100%);
+}
+
+.back-link {
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 28px;
+}
+
+.form-card h1,
+.admin-card h2 {
+    margin-bottom: 10px;
+}
+
+.form-card .muted {
+    margin-bottom: 26px;
+}
+
+.form-card form,
+.admin-card form {
+    display: grid;
+    gap: 10px;
+}
+
+.form-card label,
+.admin-card label {
+    margin-top: 12px;
+    color: #d5d5d5;
+    font-size: 14px;
+}
+
+.form-card input,
+.admin-card input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: white;
+    font-size: 16px;
+}
+
+.form-card button,
+.admin-card button {
+    margin-top: 20px;
+    padding: 15px;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background: linear-gradient(90deg, #00ff99, #00d9ff);
+}
+
+.form-footer {
+    margin-top: 26px;
+    color: #bcbcbc;
+}
+
+.form-footer a {
+    color: #00ff99;
+}
+
+.notice {
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin: 18px 0;
+    background: rgba(0,255,153,0.14);
+    border: 1px solid rgba(0,255,153,0.30);
+}
+
+.notice.error {
+    background: rgba(255,70,70,0.15);
+    border-color: rgba(255,70,70,0.35);
+}
+
+.master-grid {
+    width: min(1180px, 92%);
+    margin: 38px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.admin-card {
+    padding: 30px;
+}
+
+.admin-card.wide,
+.notice.full {
+    grid-column: 1 / -1;
+}
+
+.token {
+    display: block;
+    margin-top: 18px;
+    padding: 15px;
+    overflow-wrap: anywhere;
+    color: #00ff99;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+}
+
+.inline-form {
+    display: inline-block !important;
+}
+
+.ghost-button {
+    color: white !important;
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+.viewer-list {
+    margin-top: 22px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.viewer-list span {
+    padding: 8px 12px;
+    border-radius: 20px;
+    background: rgba(0,255,153,0.12);
+}
+
+.panel-link {
+    padding: 12px;
+}
+
+.empty-state {
+    color: #bcbcbc;
+}
+
+@media (max-width: 850px) {
+    .hero,
+    .master-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topo {
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .top-links {
+        gap: 8px;
+    }
+}

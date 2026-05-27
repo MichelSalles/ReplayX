@@ -1,5 +1,13 @@
 # ReplayX
-Um sistema de Camera Replay "Diferenciado"
+Sistema de replay instantaneo com galeria privada e marca do contratante.
+
+## Fluxo do produto
+
+- A pagina inicial apresenta o servico e permite contratar uma conta master.
+- O master configura marca d'agua/logo e cria usuarios de acesso aos replays.
+- Cada empresa recebe um token proprio para o botao ESP32.
+- Usuarios comuns acessam somente os videos vinculados a sua empresa.
+- Novos videos podem receber a propaganda configurada antes do upload.
 
 ## Configuracao local
 
@@ -13,12 +21,11 @@ SECRET_KEY=
 OBS_HOST=localhost
 OBS_PORT=4455
 OBS_PASSWORD=
-REPLAY_TOKEN=
 ```
 
 O arquivo `.env` contem credenciais e nao deve ser enviado ao Git.
-Use no `REPLAY_TOKEN` um valor longo e aleatorio, repetido no `secrets.h` do
-ESP32.
+O token de replay agora e criado no painel master e deve ser copiado para o
+`secrets.h` do ESP32 correspondente ao contratante.
 
 ## Pasta de replays do OBS
 
@@ -74,6 +81,8 @@ python replay_watcher.py
 ```
 
 O watcher processa arquivos pendentes ao iniciar, converte MKV para MP4,
-envia o resultado ao Cloudinary e grava a URL no banco local. O dashboard
-autenticado lista os uploads persistidos. A rota local `/uploads/<arquivo>`
-tambem exige login.
+associa a captura ao contratante que pressionou o botao, aplica sua marca
+quando configurada, envia o resultado ao Cloudinary e grava a URL no banco
+local. O dashboard autenticado lista apenas os uploads da mesma empresa e as
+rotas de reproducao/download verificam o usuario antes de entregar o video.
+Falhas temporarias de processamento sao tentadas novamente pelo watcher.

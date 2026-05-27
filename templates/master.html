@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel master | ReplayX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topo">
+        <h1>Replay<span>X</span></h1>
+        <div class="top-links">
+            <a class="panel-link" href="{{ url_for('dashboard') }}">Ver replays</a>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
+        </div>
+    </div>
+
+    <main class="master-grid">
+        <section class="admin-card wide">
+            <p class="eyebrow">CONTRATANTE</p>
+            <h2>{{ tenant.business_name }}</h2>
+            <p class="muted">Use o token abaixo no dispositivo que aciona o OBS.</p>
+            <code class="token">{{ tenant.replay_token }}</code>
+            <form class="inline-form" method="POST" action="{{ url_for('rotate_token') }}">
+                <button class="ghost-button" type="submit">Gerar novo token</button>
+            </form>
+        </section>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <p class="notice {{ category }} full">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="admin-card">
+            <h2>Marca dos videos</h2>
+            <p class="muted">Aplicada automaticamente nos proximos uploads.</p>
+            <form method="POST" enctype="multipart/form-data">
+                <label>Texto da marca d'agua</label>
+                <input type="text" name="watermark_text" maxlength="120" value="{{ tenant.watermark_text or '' }}" placeholder="Ex.: Arena Replay Center">
+                <label>Logo PNG ou JPG</label>
+                <input type="file" name="logo" accept=".png,.jpg,.jpeg">
+                {% if tenant.logo_filename %}
+                <p class="muted">Logo configurado: {{ tenant.logo_filename }}</p>
+                {% endif %}
+                <button type="submit">Salvar marca</button>
+            </form>
+        </section>
+
+        <section class="admin-card">
+            <h2>Acesso de clientes</h2>
+            <p class="muted">Estes usuarios acessam somente a galeria de replays.</p>
+            <form method="POST" action="{{ url_for('create_viewer') }}">
+                <label>Novo usuario</label>
+                <input type="text" name="username" required>
+                <label>Senha inicial</label>
+                <input type="password" name="password" required minlength="8">
+                <button type="submit">Criar usuario</button>
+            </form>
+            <div class="viewer-list">
+                {% for viewer in viewers %}
+                <span>{{ viewer.username }}</span>
+                {% else %}
+                <p class="muted">Nenhum usuario criado.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
