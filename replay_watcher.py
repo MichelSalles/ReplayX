@@ -150,7 +150,7 @@ def localizar_ffmpeg():
     return shutil.which("ffmpeg")
 
 
-def aguardar_arquivo_finalizado(video_path, timeout=60):
+def aguardar_arquivo_finalizado(video_path, timeout=120):
     tamanho_anterior = -1
     leituras_estaveis = 0
     limite = time.time() + timeout
@@ -300,6 +300,9 @@ def processar_replay(video_path):
 
     try:
         aguardar_arquivo_finalizado(video_path)
+
+        # Aguarda OBS liberar totalmente o arquivo
+        time.sleep(5)
 
         if arquivo_final.lower().endswith(".mkv"):
             arquivo_final = remuxar_para_mp4(arquivo_final)

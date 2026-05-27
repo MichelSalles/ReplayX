@@ -180,14 +180,11 @@ def dashboard():
 @app.route("/media/<int:replay_id>")
 @login_required
 def replay_media(replay_id):
+
     video = db.session.get(Replay, replay_id)
 
     if not video or video.tenant_id != current_user.tenant_id:
         abort(404)
-
-    local_path = os.path.join(os.path.join(BASE_DIR, "core", "uploads"), video.filename)
-    if os.path.isfile(local_path):
-        return send_from_directory(os.path.dirname(local_path), video.filename)
 
     return redirect(video.cloud_url)
 
