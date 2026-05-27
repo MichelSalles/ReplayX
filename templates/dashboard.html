@@ -35,8 +35,9 @@
             ▶ Assistir Replay
         </button>
         <video controls
-               preload="none"
-               style="display:none; width:100%;">
+               preload="metadata"
+               playsinline
+               style="display:none; width:100%; border-radius:10px;">
         </video>
         <div class="video-info">
             <h3>{{ item.filename }}</h3>
